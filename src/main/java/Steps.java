@@ -11,4 +11,14 @@ public class Steps {
                 .getBody().as(UsersResponse.class);
 
     }
+
+    public UsersResponse getUsers(){
+        return RestAssured
+                .given()
+                .header("Content-type", "application/json")
+                .when()
+                .get("https://reqres.in/api/users")
+                .getBody().as(UsersResponse.class);
+
+    }
 }

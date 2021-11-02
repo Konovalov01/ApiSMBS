@@ -1,5 +1,7 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class UserData {
     public int id;
     public String email;
