@@ -51,4 +51,20 @@ public class UserProperties {
         return eMailSecondTest;
     }
 
+    public UserData getDataFirstTest() {
+        UserData data = new UserData();
+        data.email = eMailFirstTest;
+        data.firstName = firstNameFirstTest;
+        data.lastName = lastNameFirstTest;
+        return data;
+    }
+
+    public UserData getDataSecondTest() {
+        UserData data = new UserData();
+        data.email = eMailSecondTest;
+        data.firstName = firstNameSecondTest;
+        data.lastName = lastNameSecondTest;
+        return data;
+    }
+
 }
