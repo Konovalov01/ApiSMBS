@@ -2,7 +2,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 public class Steps {
-    public UsersResponse getUsers(String numberPage){
+    public static UsersResponse getUsers(String numberPage){
         return RestAssured
                 .given()
                 .header("Content-type", "application/json")
@@ -12,7 +12,7 @@ public class Steps {
 
     }
 
-    public UsersResponse getUsers(){
+    public static UsersResponse getUsers(){
         return RestAssured
                 .given()
                 .header("Content-type", "application/json")

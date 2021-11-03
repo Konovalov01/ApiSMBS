@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -14,10 +15,7 @@ public class FirstTest {
     public Steps steps = new Steps();
     public ArrayList<UserData> listUser;
     public UsersResponse response;
-    public UserData user;
-    private List<UserData> listSearch;
-
-    private String firstName,lastName;
+    public Optional<UserData> userSearch;
 
     public FirstTest() throws IOException {
     }
@@ -31,12 +29,11 @@ public class FirstTest {
 
         listUser = response.data;
 
-        listSearch =  listUser.stream().filter((p)-> p.firstName.equals(dataSerch.firstName) &&
-                p.lastName.equals(dataSerch.lastName)).collect(Collectors.toList());
+        userSearch =  listUser.stream().filter((p)-> p.firstName.equals(dataSerch.firstName) &&
+                p.lastName.equals(dataSerch.lastName)).findFirst();
 
-        assertTrue("user not found", listSearch.size() > 0);
-        assertEquals("Email does not match ", dataSerch.email, listSearch.get(0).email);
-
+        assertTrue("User not found", userSearch.isPresent());
+        assertEquals("Email does not match ", dataSerch.email, userSearch.get().email);
     }
 
     @Test
@@ -50,15 +47,14 @@ public class FirstTest {
 
             listUser = response.data;
 
-            listSearch =  listUser.stream().filter((p)-> p.firstName.equals(dataSerch.firstName) &&
-                    p.lastName.equals(dataSerch.lastName)).collect(Collectors.toList());
+            userSearch =  listUser.stream().filter((p)-> p.firstName.equals(dataSerch.firstName) &&
+                    p.lastName.equals(dataSerch.lastName)).findFirst();
 
-            if(listSearch.size() > 0) {
+            if(userSearch.isPresent()) {
                 break;
             }
         }
-        assertTrue("user not found", listSearch.size() > 0);
-        assertEquals("Email does not match ", dataSerch.email, listSearch.get(0).email);
-
+        assertTrue("User not found", userSearch.isPresent());
+        assertEquals("Email does not match ", dataSerch.email, userSearch.get().email);
     }
 }
