@@ -3,9 +3,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FirstTest {
     public UserProperties properties = new UserProperties();
@@ -13,6 +15,7 @@ public class FirstTest {
     public ArrayList<UserData> listUser;
     public UsersResponse response;
     public UserData user;
+    private List<UserData> listSearch;
 
     private String firstName,lastName;
 
@@ -28,27 +31,18 @@ public class FirstTest {
 
         listUser = response.data;
 
-        for (int i = 0; i < response.perPage; i++) {
-            if ((listUser.get(i).firstName.equals(dataSerch.firstName)) &&
-                    (listUser.get(i).lastName.equals(dataSerch.lastName))) {
-                user = listUser.get(i);
-                break;
-            }
-        }
-
-        listUser.stream().filter((p)-> p.firstName.equals(dataSerch.firstName) &&
+        listSearch =  listUser.stream().filter((p)-> p.firstName.equals(dataSerch.firstName) &&
                 p.lastName.equals(dataSerch.lastName)).collect(Collectors.toList());
 
-
-        assertEquals("Email does not match ", dataSerch.email, user.email);
+        assertTrue("user not found", listSearch.size() > 0);
+        assertEquals("Email does not match ", dataSerch.email, listSearch.get(0).email);
 
     }
 
     @Test
-    public void secondTest() {
+    public void secondTest() throws IOException {
 
-        firstName = properties.getFirstNameSecondTest();
-        lastName = properties.getLastNameSecondTest();
+        UserData dataSerch = new UserProperties().getDataSecondTest();
 
         for (int j = 1; j <= steps.getUsers().totalPages; j++) {
 
@@ -56,14 +50,15 @@ public class FirstTest {
 
             listUser = response.data;
 
-            for (int i = 0; i < response.perPage; i++) {
-                if ((listUser.get(i).firstName.equals(firstName)) && (listUser.get(i).lastName.equals(lastName))) {
-                    user = listUser.get(i);
-                    break;
-                }
+            listSearch =  listUser.stream().filter((p)-> p.firstName.equals(dataSerch.firstName) &&
+                    p.lastName.equals(dataSerch.lastName)).collect(Collectors.toList());
+
+            if(listSearch.size() > 0) {
+                break;
             }
         }
-        assertEquals("Email does not match ", properties.getEMailSecondTest(), user.email);
+        assertTrue("user not found", listSearch.size() > 0);
+        assertEquals("Email does not match ", dataSerch.email, listSearch.get(0).email);
 
     }
 }

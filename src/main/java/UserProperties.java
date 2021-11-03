@@ -27,30 +27,6 @@ public class UserProperties {
         eMailSecondTest = authorizationProp.getProperty("eMailSecondTest");
     }
 
-    public String getFirstNameFirstTest() {
-        return firstNameFirstTest;
-    }
-
-    public String getLastNameFirstTest() {
-        return lastNameFirstTest;
-    }
-
-    public String getEMailFirstTest() {
-        return eMailFirstTest;
-    }
-
-    public String getFirstNameSecondTest() {
-        return firstNameSecondTest;
-    }
-
-    public String getLastNameSecondTest() {
-        return lastNameSecondTest;
-    }
-
-    public String getEMailSecondTest() {
-        return eMailSecondTest;
-    }
-
     public UserData getDataFirstTest() {
         UserData data = new UserData();
         data.email = eMailFirstTest;
